@@ -37,9 +37,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             
             configuration.detectionImages = imagesToTrack
             
-            configuration.maximumNumberOfTrackedImages = 2
-            
-            print("images successfully added")
+            configuration.maximumNumberOfTrackedImages = 3
             
         }
         
@@ -76,12 +74,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 
                 if let pokeScene = SCNScene(named: "art.scnassets/eevee.scn") {
                     
-                    if let pokeNode = pokeScene.rootNode.childNodes.first {
-                        
-                        pokeNode.eulerAngles.x = .pi/2
-                        
+                    if let pokeNode = addPokeNode(with: pokeScene) {
                         planeNode.addChildNode(pokeNode)
-                        
                     }
                     
                 }
@@ -91,12 +85,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 
                 if let pokeScene = SCNScene(named: "art.scnassets/oddish.scn") {
                     
-                    if let pokeNode = pokeScene.rootNode.childNodes.first {
-                        
-                        pokeNode.eulerAngles.x = .pi/2
-                        
+                    if let pokeNode = addPokeNode(with: pokeScene) {
                         planeNode.addChildNode(pokeNode)
-                        
+                    }
+                    
+                }
+                
+            }
+            else if imageAnchor.referenceImage.name == "pikachu-card" {
+                
+                if let pokeScene = SCNScene(named: "art.scnassets/pikachu.scn") {
+                    print("pika pika")
+                    if let pokeNode = addPokeNode(with: pokeScene) {
+                        planeNode.addChildNode(pokeNode)
                     }
                     
                 }
@@ -106,6 +107,20 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
         
         return node
+        
+    }
+    
+    func addPokeNode(with pokeScene : SCNScene) -> SCNNode? {
+        
+        if let pokeNode = pokeScene.rootNode.childNodes.first {
+            
+            pokeNode.eulerAngles.x = .pi/2
+            
+            return pokeNode
+            
+        }
+        
+        return nil
         
     }
     
